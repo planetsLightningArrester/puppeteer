@@ -1,9 +1,16 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 
 (async () => {
-  const browser = await puppeteer.launch({
-    executablePath: '/usr/bin/chromium-browser'
-  })
+  let browser;
+  if (process.platform==='win32') {
+    browser = await puppeteer.launch({
+      executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+    });
+  } else {
+    browser = await puppeteer.launch({
+      executablePath: '/usr/bin/chromium-browser'
+    });
+  }
   const page = await browser.newPage();
   await page.goto('https://google.com');
 
